@@ -1,0 +1,872 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>5-Day Family Veg Menu & Recipe Guide</title>
+<style>
+  :root{
+    --bg:#f7f4ec;
+    --paper:#fffdf8;
+    --ink:#28322b;
+    --muted:#6d766f;
+    --sage:#7a8b76;
+    --sage-soft:#e8eee5;
+    --gold:#c8a15a;
+    --gold-soft:#f7edd8;
+    --tomato:#b85c4b;
+    --tomato-soft:#f8e8e3;
+    --green:#4e7658;
+    --border:#ddd8cc;
+    --shadow:0 8px 28px rgba(40,50,43,.08);
+  }
+
+  *{box-sizing:border-box}
+  html{scroll-behavior:smooth}
+  body{
+    margin:0;
+    font-family:Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+    color:var(--ink);
+    background:
+      radial-gradient(circle at top left, rgba(122,139,118,.10), transparent 30%),
+      linear-gradient(180deg,#faf8f2 0%,var(--bg) 100%);
+    line-height:1.5;
+  }
+
+  .wrap{max-width:1180px;margin:auto;padding:28px 20px 60px}
+  .hero{
+    background:linear-gradient(135deg,#27332c 0%,#3e5146 55%,#6f806d 100%);
+    color:white;
+    border-radius:28px;
+    padding:34px;
+    box-shadow:var(--shadow);
+    position:relative;
+    overflow:hidden;
+  }
+  .hero:after{
+    content:"";
+    position:absolute;
+    width:240px;height:240px;border-radius:50%;
+    right:-70px;top:-85px;background:rgba(200,161,90,.18);
+  }
+  .kicker{font-size:.85rem;letter-spacing:.12em;text-transform:uppercase;color:#e9d7ad;font-weight:800}
+  h1{font-size:clamp(2rem,5vw,4rem);line-height:1.03;margin:.45rem 0 1rem;max-width:900px}
+  .hero p{max-width:760px;color:#eaf0eb;font-size:1.05rem;margin:0}
+  .pillrow{display:flex;flex-wrap:wrap;gap:10px;margin-top:22px}
+  .pill{background:rgba(255,255,255,.10);border:1px solid rgba(255,255,255,.18);padding:8px 12px;border-radius:999px;font-size:.9rem}
+
+  .toc{
+    margin:22px 0 30px;
+    display:flex;flex-wrap:wrap;gap:10px
+  }
+  .toc a{
+    color:var(--ink);text-decoration:none;background:var(--paper);border:1px solid var(--border);
+    padding:9px 13px;border-radius:999px;font-weight:700;box-shadow:0 3px 10px rgba(40,50,43,.04)
+  }
+  .toc a:hover{background:var(--sage-soft)}
+
+  .section{margin-top:34px}
+  .section-title{
+    display:flex;align-items:center;gap:12px;margin-bottom:16px
+  }
+  .section-title .icon{
+    width:42px;height:42px;display:grid;place-items:center;border-radius:13px;background:var(--sage-soft);font-size:1.3rem
+  }
+  .section-title h2{margin:0;font-size:1.65rem}
+  .section-title p{margin:2px 0 0;color:var(--muted);font-size:.95rem}
+
+  .schedule{
+    display:grid;
+    grid-template-columns:repeat(5,1fr);
+    gap:14px;
+  }
+  .day-card{
+    background:var(--paper);
+    border:1px solid var(--border);
+    border-radius:20px;
+    padding:16px;
+    box-shadow:0 5px 16px rgba(40,50,43,.05);
+  }
+  .day-card h3{margin:0 0 10px;font-size:1.05rem;color:var(--green)}
+  .slot{
+    border-radius:14px;padding:11px 12px;margin-top:9px;background:#faf8f2;border:1px solid #ece7da
+  }
+  .slot b{display:block;font-size:.78rem;text-transform:uppercase;letter-spacing:.08em;color:var(--gold)}
+  .slot span{display:block;margin-top:3px;font-weight:800;font-size:.94rem}
+  .side{font-size:.82rem;color:var(--muted);margin-top:8px}
+
+  .day-section{
+    background:rgba(255,255,255,.42);
+    border:1px solid rgba(221,216,204,.75);
+    border-radius:26px;
+    padding:20px;
+    margin-top:20px;
+  }
+  .day-head{
+    display:flex;justify-content:space-between;gap:14px;align-items:center;margin-bottom:15px;
+  }
+  .day-head h2{margin:0;font-size:1.6rem}
+  .tag{background:var(--gold-soft);color:#755927;padding:6px 10px;border-radius:999px;font-size:.8rem;font-weight:800}
+
+  .recipes{
+    display:grid;
+    grid-template-columns:repeat(2,minmax(0,1fr));
+    gap:16px;
+  }
+  .recipe{
+    background:var(--paper);
+    border:1px solid var(--border);
+    border-radius:20px;
+    overflow:hidden;
+    box-shadow:0 5px 18px rgba(40,50,43,.05);
+  }
+  .recipe-head{
+    padding:16px 18px;
+    display:flex;justify-content:space-between;align-items:flex-start;gap:10px;
+    background:linear-gradient(180deg,#fffdf8,#faf7ef);
+  }
+  .recipe h3{margin:0;font-size:1.12rem}
+  .meal-badge{font-size:.75rem;border-radius:999px;padding:5px 9px;background:var(--sage-soft);color:var(--green);font-weight:800;white-space:nowrap}
+  .recipe-body{padding:0 18px 18px}
+  .two-col{display:grid;grid-template-columns:1fr 1.35fr;gap:16px}
+  .mini-title{font-weight:900;font-size:.83rem;letter-spacing:.08em;text-transform:uppercase;color:var(--tomato);margin:12px 0 7px}
+  .ingredients{
+    width:100%;border-collapse:collapse;font-size:.9rem
+  }
+  .ingredients td{padding:6px 0;border-bottom:1px dashed #e5e0d4}
+  .ingredients td:last-child{text-align:right;font-weight:800;padding-left:10px}
+  ol.method{margin:0;padding-left:20px;font-size:.9rem}
+  ol.method li{margin-bottom:5px}
+  .note{
+    margin-top:12px;padding:9px 11px;border-left:4px solid var(--gold);background:var(--gold-soft);border-radius:8px;font-size:.85rem
+  }
+
+  .support-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:16px}
+  .support-card{
+    background:var(--paper);border:1px solid var(--border);border-radius:20px;padding:18px;box-shadow:0 5px 18px rgba(40,50,43,.04)
+  }
+  .support-card h3{margin:0 0 10px}
+
+  .pair-table,.shopping-table{
+    width:100%;border-collapse:collapse;background:var(--paper);border-radius:18px;overflow:hidden;border:1px solid var(--border)
+  }
+  .pair-table th,.pair-table td,.shopping-table th,.shopping-table td{
+    padding:11px 13px;border-bottom:1px solid #ece7da;text-align:left
+  }
+  .pair-table th,.shopping-table th{background:var(--sage-soft);color:var(--green);font-size:.82rem;text-transform:uppercase;letter-spacing:.06em}
+  .shopping-table td:last-child{font-weight:800;text-align:right}
+
+  .footer{
+    margin-top:36px;background:#27332c;color:#eaf0eb;border-radius:22px;padding:22px;text-align:center
+  }
+
+
+  .macro-strip{
+    display:grid;grid-template-columns:repeat(4,1fr);gap:12px;margin:16px 0 20px
+  }
+  .macro{
+    background:var(--paper);border:1px solid var(--border);border-radius:18px;padding:16px;
+    text-align:center;box-shadow:0 4px 14px rgba(40,50,43,.04)
+  }
+  .macro strong{display:block;font-size:1.45rem;color:var(--green);line-height:1.15}
+  .macro span{font-size:.8rem;color:var(--muted);font-weight:700;text-transform:uppercase;letter-spacing:.05em}
+  .diet-timeline{display:grid;grid-template-columns:repeat(5,1fr);gap:12px;margin-top:16px}
+  .diet-card{
+    background:var(--paper);border:1px solid var(--border);border-radius:20px;padding:16px;
+    box-shadow:0 5px 18px rgba(40,50,43,.05);position:relative
+  }
+  .diet-time{font-size:.78rem;font-weight:900;color:var(--tomato);text-transform:uppercase;letter-spacing:.07em}
+  .diet-card h3{margin:5px 0 8px;font-size:1.05rem}
+  .diet-card ul{margin:0;padding-left:18px;font-size:.9rem}
+  .diet-card li{margin:4px 0}
+  .diet-kcal{margin-top:10px;padding-top:9px;border-top:1px dashed #ded8cc;font-size:.84rem;font-weight:800;color:var(--green)}
+  .diet-note-grid{display:grid;grid-template-columns:1.2fr 1fr;gap:16px;margin-top:16px}
+  .diet-note{
+    background:linear-gradient(180deg,var(--gold-soft),#fffaf0);
+    border:1px solid #ead9b8;border-radius:18px;padding:16px
+  }
+  .diet-note h3{margin:0 0 8px}
+  .protein-rotation{
+    display:grid;grid-template-columns:repeat(4,1fr);gap:10px;margin-top:12px
+  }
+  .protein-chip{
+    background:var(--sage-soft);border:1px solid #d8e1d5;border-radius:13px;padding:10px;text-align:center;
+    font-weight:800;font-size:.88rem
+  }
+
+  @media(max-width:950px){
+    .schedule{grid-template-columns:repeat(2,1fr)}
+    .recipes,.support-grid{grid-template-columns:1fr}
+    .diet-timeline{grid-template-columns:repeat(2,1fr)}
+    .macro-strip{grid-template-columns:repeat(2,1fr)}
+    .diet-note-grid{grid-template-columns:1fr}
+    .protein-rotation{grid-template-columns:repeat(2,1fr)}
+  }
+  @media(max-width:620px){
+    .wrap{padding:14px 12px 40px}
+    .hero{padding:24px;border-radius:20px}
+    .schedule{grid-template-columns:1fr}
+    .two-col{grid-template-columns:1fr}
+    .diet-timeline,.macro-strip,.protein-rotation{grid-template-columns:1fr}
+    .day-section{padding:14px;border-radius:18px}
+    .day-head{align-items:flex-start;flex-direction:column}
+  }
+
+  @media print{
+    body{background:white}
+    .wrap{max-width:none;padding:0}
+    .hero{box-shadow:none;border-radius:0}
+    .toc{display:none}
+    .day-section,.recipe,.support-card{break-inside:avoid;box-shadow:none}
+    .footer{break-inside:avoid}
+  }
+</style>
+</head>
+<body>
+<div class="wrap">
+  <section class="hero">
+    <div class="kicker">Family Kitchen Recipe Board</div>
+    <h1>5-Day Vegetarian Menu & Recipe Guide</h1>
+    <p>Monday to Friday lunch and dinner choices, plus dal, sambar, pairings and a consolidated shopping list. Every recipe is portioned for approximately 5 people.</p>
+    <div class="pillrow">
+      <span class="pill">🍚 Lunch & Dinner</span>
+      <span class="pill">🥔 Separate Vegetable Dishes</span>
+      <span class="pill">🥣 Dal & Sambar Rotation</span>
+      <span class="pill">👨‍👩‍👧‍👦 Serves 5</span>
+      <span class="pill">🖨️ Print Friendly</span>
+    </div>
+  </section>
+
+  <nav class="toc">
+    <a href="#menu">Weekly Menu</a>
+    <a href="#monday">Monday</a>
+    <a href="#tuesday">Tuesday</a>
+    <a href="#wednesday">Wednesday</a>
+    <a href="#thursday">Thursday</a>
+    <a href="#friday">Friday</a>
+    <a href="#dal">Dal</a>
+    <a href="#sambar">Sambar</a>
+    <a href="#gym-diet">Gym Diet</a>
+    <a href="#pairings">Pairings</a>
+    <a href="#shopping">Shopping</a>
+  </nav>
+
+  <section class="section" id="menu">
+    <div class="section-title">
+      <div class="icon">📅</div>
+      <div><h2>Weekly Menu at a Glance</h2><p>Choose one lunch and one dinner option each day.</p></div>
+    </div>
+    <div class="schedule">
+      <div class="day-card"><h3>Monday</h3>
+        <div class="slot"><b>Lunch</b><span>Aloo Fry / Bendakaya Fry</span></div>
+        <div class="slot"><b>Dinner</b><span>Aloo Tomato Curry / Beans-Carrot Coconut Fry</span></div>
+        <div class="side">Best side: Tomato Pappu or Drumstick Sambar</div>
+      </div>
+      <div class="day-card"><h3>Tuesday</h3>
+        <div class="slot"><b>Lunch</b><span>Dondakaya Fry / Vankaya Tomato Kura</span></div>
+        <div class="slot"><b>Dinner</b><span>Cabbage-Carrot Kura / Potato-Peas Curry</span></div>
+        <div class="side">Best side: Palakura Pappu or Onion-Tomato Sambar</div>
+      </div>
+      <div class="day-card"><h3>Wednesday</h3>
+        <div class="slot"><b>Lunch</b><span>Vankaya Peanut Curry / Raw Banana Fry</span></div>
+        <div class="slot"><b>Dinner</b><span>Mixed Vegetable Kurma / Bottle Gourd Mild Curry</span></div>
+        <div class="side">Best side: Dosakaya Pappu or Vegetable Sambar</div>
+      </div>
+      <div class="day-card"><h3>Thursday</h3>
+        <div class="slot"><b>Lunch</b><span>Bendakaya Pulusu / Potato-Onion Fry</span></div>
+        <div class="slot"><b>Dinner</b><span>Cauliflower-Peas Masala / Ridge Gourd Curry</span></div>
+        <div class="side">Best side: Gongura Pappu or Drumstick Sambar</div>
+      </div>
+      <div class="day-card"><h3>Friday</h3>
+        <div class="slot"><b>Lunch</b><span>Gutti Vankaya / Dondakaya Peanut Fry</span></div>
+        <div class="slot"><b>Dinner</b><span>Mixed Veg Moong Dal / Capsicum-Potato Curry</span></div>
+        <div class="side">Best side: Tomato Pappu or Onion-Tomato Sambar</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- MONDAY -->
+  <section class="day-section" id="monday">
+    <div class="day-head"><h2>Monday</h2><span class="tag">4 choices • serves 5</span></div>
+    <div class="recipes">
+
+      <article class="recipe">
+        <div class="recipe-head"><h3>🥔 Aloo Fry</h3><span class="meal-badge">Lunch</span></div>
+        <div class="recipe-body"><div class="two-col">
+          <div><div class="mini-title">Ingredients</div><table class="ingredients">
+            <tr><td>Potato</td><td>1 kg</td></tr><tr><td>Onion</td><td>200 g</td></tr><tr><td>Garlic</td><td>6 cloves</td></tr>
+            <tr><td>Oil</td><td>4 tbsp</td></tr><tr><td>Mustard</td><td>1 tsp</td></tr><tr><td>Cumin</td><td>1 tsp</td></tr>
+            <tr><td>Turmeric</td><td>½ tsp</td></tr><tr><td>Chilli powder</td><td>1 tsp</td></tr><tr><td>Coriander powder</td><td>1½ tsp</td></tr>
+            <tr><td>Salt</td><td>2 tsp</td></tr><tr><td>Curry leaves</td><td>1 sprig</td></tr>
+          </table></div>
+          <div><div class="mini-title">Method</div><ol class="method">
+            <li>Peel and cut potatoes into small cubes.</li><li>Heat oil; add mustard, cumin, garlic and curry leaves.</li>
+            <li>Add onion and sauté 2–3 minutes.</li><li>Add potatoes, turmeric and salt.</li>
+            <li>Cover and cook on low until nearly done.</li><li>Add chilli and coriander powders.</li><li>Fry uncovered until lightly crisp.</li>
+          </ol></div>
+        </div><div class="note">Pair well with Tomato Pappu or Drumstick Sambar.</div></div>
+      </article>
+
+      <article class="recipe">
+        <div class="recipe-head"><h3>🌿 Bendakaya Fry</h3><span class="meal-badge">Lunch</span></div>
+        <div class="recipe-body"><div class="two-col">
+          <div><div class="mini-title">Ingredients</div><table class="ingredients">
+            <tr><td>Bhindi</td><td>900 g</td></tr><tr><td>Onion</td><td>200 g</td></tr><tr><td>Oil</td><td>4 tbsp</td></tr>
+            <tr><td>Mustard</td><td>1 tsp</td></tr><tr><td>Cumin</td><td>1 tsp</td></tr><tr><td>Urad dal</td><td>1 tsp</td></tr>
+            <tr><td>Turmeric</td><td>½ tsp</td></tr><tr><td>Chilli powder</td><td>¾–1 tsp</td></tr><tr><td>Coriander powder</td><td>1 tsp</td></tr>
+            <tr><td>Salt</td><td>1¾ tsp</td></tr><tr><td>Curry leaves</td><td>1 sprig</td></tr>
+          </table></div>
+          <div><div class="mini-title">Method</div><ol class="method">
+            <li>Wash bhindi and dry completely before cutting.</li><li>Heat oil and temper mustard, cumin, urad dal and curry leaves.</li>
+            <li>Add onion and sauté lightly.</li><li>Add bhindi and turmeric; cook mostly uncovered.</li>
+            <li>When slime reduces, add salt and spice powders.</li><li>Cook until tender and lightly crisp.</li>
+          </ol></div>
+        </div><div class="note">Drying bhindi thoroughly is the key to reducing sliminess.</div></div>
+      </article>
+
+      <article class="recipe">
+        <div class="recipe-head"><h3>🍅 Aloo Tomato Curry</h3><span class="meal-badge">Dinner</span></div>
+        <div class="recipe-body"><div class="two-col">
+          <div><div class="mini-title">Ingredients</div><table class="ingredients">
+            <tr><td>Potato</td><td>800 g</td></tr><tr><td>Tomato</td><td>500 g</td></tr><tr><td>Onion</td><td>250 g</td></tr>
+            <tr><td>Ginger-garlic paste</td><td>1 tbsp</td></tr><tr><td>Green chilli</td><td>2</td></tr><tr><td>Oil</td><td>3 tbsp</td></tr>
+            <tr><td>Turmeric</td><td>½ tsp</td></tr><tr><td>Chilli powder</td><td>¾ tsp</td></tr><tr><td>Coriander powder</td><td>1½ tsp</td></tr>
+            <tr><td>Garam masala</td><td>½ tsp</td></tr><tr><td>Water</td><td>300 ml</td></tr><tr><td>Salt</td><td>2 tsp</td></tr>
+          </table></div>
+          <div><div class="mini-title">Method</div><ol class="method">
+            <li>Cube and parboil potatoes.</li><li>Sauté onion in oil until soft.</li><li>Add ginger-garlic paste and green chilli.</li>
+            <li>Add tomatoes and cook until pulpy.</li><li>Add spices and salt.</li><li>Add potato and water; simmer 8–10 minutes.</li><li>Finish with garam masala.</li>
+          </ol></div>
+        </div></div>
+      </article>
+
+      <article class="recipe">
+        <div class="recipe-head"><h3>🥕 Beans-Carrot Coconut Fry</h3><span class="meal-badge">Dinner</span></div>
+        <div class="recipe-body"><div class="two-col">
+          <div><div class="mini-title">Ingredients</div><table class="ingredients">
+            <tr><td>Beans</td><td>600 g</td></tr><tr><td>Carrot</td><td>400 g</td></tr><tr><td>Grated coconut</td><td>60–70 g</td></tr>
+            <tr><td>Onion</td><td>150 g</td></tr><tr><td>Green chilli</td><td>2</td></tr><tr><td>Oil</td><td>2½ tbsp</td></tr>
+            <tr><td>Mustard</td><td>1 tsp</td></tr><tr><td>Urad dal</td><td>1 tsp</td></tr><tr><td>Turmeric</td><td>¼ tsp</td></tr>
+            <tr><td>Salt</td><td>1¾ tsp</td></tr><tr><td>Curry leaves</td><td>1 sprig</td></tr>
+          </table></div>
+          <div><div class="mini-title">Method</div><ol class="method">
+            <li>Finely chop beans and carrot.</li><li>Temper mustard, urad dal, curry leaves and green chilli.</li>
+            <li>Add onion briefly.</li><li>Add beans, carrot, turmeric and salt.</li><li>Sprinkle little water, cover and cook.</li><li>Finish with grated coconut.</li>
+          </ol></div>
+        </div></div>
+      </article>
+
+    </div>
+  </section>
+
+  <!-- TUESDAY -->
+  <section class="day-section" id="tuesday">
+    <div class="day-head"><h2>Tuesday</h2><span class="tag">4 choices • serves 5</span></div>
+    <div class="recipes">
+
+      <article class="recipe">
+        <div class="recipe-head"><h3>🥒 Dondakaya Fry</h3><span class="meal-badge">Lunch</span></div>
+        <div class="recipe-body"><div class="two-col">
+          <div><div class="mini-title">Ingredients</div><table class="ingredients">
+            <tr><td>Dondakaya</td><td>1 kg</td></tr><tr><td>Onion</td><td>200 g</td></tr><tr><td>Roasted peanut powder</td><td>60 g</td></tr>
+            <tr><td>Oil</td><td>4 tbsp</td></tr><tr><td>Mustard</td><td>1 tsp</td></tr><tr><td>Cumin</td><td>1 tsp</td></tr>
+            <tr><td>Turmeric</td><td>½ tsp</td></tr><tr><td>Chilli powder</td><td>1 tsp</td></tr><tr><td>Coriander powder</td><td>1 tsp</td></tr>
+            <tr><td>Salt</td><td>2 tsp</td></tr>
+          </table></div>
+          <div><div class="mini-title">Method</div><ol class="method">
+            <li>Slice dondakaya thinly.</li><li>Temper mustard, cumin and curry leaves in oil.</li><li>Add onion and sauté.</li>
+            <li>Add dondakaya, turmeric and salt.</li><li>Cook covered until soft, then fry uncovered.</li><li>Add chilli, coriander and peanut powder.</li>
+          </ol></div>
+        </div></div>
+      </article>
+
+      <article class="recipe">
+        <div class="recipe-head"><h3>🍆 Vankaya Tomato Kura</h3><span class="meal-badge">Lunch</span></div>
+        <div class="recipe-body"><div class="two-col">
+          <div><div class="mini-title">Ingredients</div><table class="ingredients">
+            <tr><td>Brinjal</td><td>900 g</td></tr><tr><td>Tomato</td><td>400 g</td></tr><tr><td>Onion</td><td>250 g</td></tr>
+            <tr><td>Ginger-garlic paste</td><td>1 tbsp</td></tr><tr><td>Green chilli</td><td>2</td></tr><tr><td>Oil</td><td>3 tbsp</td></tr>
+            <tr><td>Turmeric</td><td>½ tsp</td></tr><tr><td>Chilli powder</td><td>¾–1 tsp</td></tr><tr><td>Coriander powder</td><td>1½ tsp</td></tr>
+            <tr><td>Cumin powder</td><td>½ tsp</td></tr><tr><td>Water</td><td>150–200 ml</td></tr><tr><td>Salt</td><td>2 tsp</td></tr>
+          </table></div>
+          <div><div class="mini-title">Method</div><ol class="method">
+            <li>Cut brinjal into medium pieces and keep in water.</li><li>Sauté onion, then ginger-garlic and green chilli.</li>
+            <li>Add tomato and cook down well.</li><li>Add spice powders and salt.</li><li>Add brinjal and water.</li><li>Cover and cook until soft; reduce until masala coats pieces.</li>
+          </ol></div>
+        </div></div>
+      </article>
+
+      <article class="recipe">
+        <div class="recipe-head"><h3>🥬 Cabbage-Carrot Kura</h3><span class="meal-badge">Dinner</span></div>
+        <div class="recipe-body"><div class="two-col">
+          <div><div class="mini-title">Ingredients</div><table class="ingredients">
+            <tr><td>Cabbage</td><td>700 g</td></tr><tr><td>Carrot</td><td>300 g</td></tr><tr><td>Onion</td><td>150 g</td></tr>
+            <tr><td>Grated coconut</td><td>50 g</td></tr><tr><td>Green chilli</td><td>2</td></tr><tr><td>Oil</td><td>2½ tbsp</td></tr>
+            <tr><td>Mustard</td><td>1 tsp</td></tr><tr><td>Chana dal</td><td>1 tsp</td></tr><tr><td>Urad dal</td><td>1 tsp</td></tr>
+            <tr><td>Turmeric</td><td>¼ tsp</td></tr><tr><td>Salt</td><td>1¾ tsp</td></tr>
+          </table></div>
+          <div><div class="mini-title">Method</div><ol class="method">
+            <li>Shred cabbage and grate or finely cut carrot.</li><li>Temper mustard, chana dal and urad dal.</li><li>Add chilli and onion briefly.</li>
+            <li>Add cabbage, carrot, turmeric and salt.</li><li>Cover and cook until just tender.</li><li>Add coconut and cook 1–2 minutes.</li>
+          </ol></div>
+        </div></div>
+      </article>
+
+      <article class="recipe">
+        <div class="recipe-head"><h3>🟢 Potato-Peas Curry</h3><span class="meal-badge">Dinner</span></div>
+        <div class="recipe-body"><div class="two-col">
+          <div><div class="mini-title">Ingredients</div><table class="ingredients">
+            <tr><td>Potato</td><td>750 g</td></tr><tr><td>Green peas</td><td>300 g</td></tr><tr><td>Onion</td><td>250 g</td></tr>
+            <tr><td>Tomato</td><td>300 g</td></tr><tr><td>Ginger-garlic paste</td><td>1 tbsp</td></tr><tr><td>Oil</td><td>3 tbsp</td></tr>
+            <tr><td>Turmeric</td><td>½ tsp</td></tr><tr><td>Chilli powder</td><td>¾ tsp</td></tr><tr><td>Coriander powder</td><td>1½ tsp</td></tr>
+            <tr><td>Cumin powder</td><td>½ tsp</td></tr><tr><td>Garam masala</td><td>½ tsp</td></tr><tr><td>Water</td><td>400 ml</td></tr>
+          </table></div>
+          <div><div class="mini-title">Method</div><ol class="method">
+            <li>Sauté onion, then ginger-garlic paste.</li><li>Add tomatoes and cook soft.</li><li>Add spices and salt.</li>
+            <li>Add potato and peas; mix well.</li><li>Add water, cover and cook until potato is soft.</li><li>Finish with garam masala.</li>
+          </ol></div>
+        </div></div>
+      </article>
+
+    </div>
+  </section>
+
+  <!-- WEDNESDAY -->
+  <section class="day-section" id="wednesday">
+    <div class="day-head"><h2>Wednesday</h2><span class="tag">4 choices • serves 5</span></div>
+    <div class="recipes">
+
+      <article class="recipe">
+        <div class="recipe-head"><h3>🥜 Vankaya Peanut Curry</h3><span class="meal-badge">Lunch</span></div>
+        <div class="recipe-body"><div class="two-col">
+          <div><div class="mini-title">Ingredients</div><table class="ingredients">
+            <tr><td>Small brinjals</td><td>1 kg</td></tr><tr><td>Roasted peanuts</td><td>120 g</td></tr><tr><td>Sesame seeds</td><td>25–30 g</td></tr>
+            <tr><td>Dry coconut</td><td>40 g</td></tr><tr><td>Onion</td><td>200 g</td></tr><tr><td>Tamarind</td><td>20 g</td></tr>
+            <tr><td>Oil</td><td>4 tbsp</td></tr><tr><td>Turmeric</td><td>½ tsp</td></tr><tr><td>Chilli powder</td><td>1 tsp</td></tr>
+            <tr><td>Coriander powder</td><td>1½ tsp</td></tr><tr><td>Cumin</td><td>1 tsp</td></tr><tr><td>Salt</td><td>2 tsp</td></tr>
+          </table></div>
+          <div><div class="mini-title">Method</div><ol class="method">
+            <li>Roast and grind peanuts, sesame and dry coconut.</li><li>Slit brinjals and keep in water.</li><li>Sauté onion in oil.</li>
+            <li>Add brinjals, turmeric and spices.</li><li>Add tamarind extract and ground peanut mix.</li><li>Add enough water for gravy; cook covered until soft.</li>
+          </ol></div>
+        </div></div>
+      </article>
+
+      <article class="recipe">
+        <div class="recipe-head"><h3>🍌 Raw Banana Fry</h3><span class="meal-badge">Lunch</span></div>
+        <div class="recipe-body"><div class="two-col">
+          <div><div class="mini-title">Ingredients</div><table class="ingredients">
+            <tr><td>Raw banana</td><td>1 kg</td></tr><tr><td>Garlic</td><td>5 cloves</td></tr><tr><td>Oil</td><td>4 tbsp</td></tr>
+            <tr><td>Mustard</td><td>1 tsp</td></tr><tr><td>Cumin</td><td>1 tsp</td></tr><tr><td>Turmeric</td><td>½ tsp</td></tr>
+            <tr><td>Chilli powder</td><td>1 tsp</td></tr><tr><td>Coriander powder</td><td>1 tsp</td></tr><tr><td>Salt</td><td>2 tsp</td></tr>
+          </table></div>
+          <div><div class="mini-title">Method</div><ol class="method">
+            <li>Peel and cube raw bananas.</li><li>Parboil or steam to about 70% cooked.</li><li>Temper mustard, cumin, garlic and curry leaves.</li>
+            <li>Add banana, turmeric and salt.</li><li>Fry until edges begin to colour.</li><li>Add spice powders and fry until lightly crisp.</li>
+          </ol></div>
+        </div></div>
+      </article>
+
+      <article class="recipe">
+        <div class="recipe-head"><h3>🥦 Mixed Vegetable Kurma</h3><span class="meal-badge">Dinner</span></div>
+        <div class="recipe-body"><div class="two-col">
+          <div><div class="mini-title">Ingredients</div><table class="ingredients">
+            <tr><td>Potato</td><td>250 g</td></tr><tr><td>Carrot</td><td>200 g</td></tr><tr><td>Beans</td><td>150 g</td></tr>
+            <tr><td>Green peas</td><td>150 g</td></tr><tr><td>Cauliflower</td><td>250 g</td></tr><tr><td>Onion</td><td>250 g</td></tr>
+            <tr><td>Tomato</td><td>200 g</td></tr><tr><td>Coconut</td><td>80 g</td></tr><tr><td>Cashew</td><td>20 g</td></tr>
+            <tr><td>Ginger-garlic paste</td><td>1 tbsp</td></tr><tr><td>Oil</td><td>3 tbsp</td></tr><tr><td>Garam masala</td><td>1 tsp</td></tr>
+          </table></div>
+          <div><div class="mini-title">Method</div><ol class="method">
+            <li>Chop vegetables evenly.</li><li>Grind coconut and cashew into a smooth paste.</li><li>Sauté onion, then ginger-garlic and tomato.</li>
+            <li>Add turmeric, chilli powder, coriander powder and salt.</li><li>Add vegetables and cook with enough water.</li><li>Add coconut-cashew paste and garam masala; simmer 5–7 minutes.</li>
+          </ol></div>
+        </div></div>
+      </article>
+
+      <article class="recipe">
+        <div class="recipe-head"><h3>🥣 Bottle Gourd Mild Curry</h3><span class="meal-badge">Dinner</span></div>
+        <div class="recipe-body"><div class="two-col">
+          <div><div class="mini-title">Ingredients</div><table class="ingredients">
+            <tr><td>Bottle gourd</td><td>1 kg</td></tr><tr><td>Onion</td><td>200 g</td></tr><tr><td>Tomato</td><td>200 g</td></tr>
+            <tr><td>Green chilli</td><td>2</td></tr><tr><td>Moong dal (optional)</td><td>50 g</td></tr><tr><td>Oil</td><td>2 tbsp</td></tr>
+            <tr><td>Mustard</td><td>1 tsp</td></tr><tr><td>Cumin</td><td>1 tsp</td></tr><tr><td>Turmeric</td><td>½ tsp</td></tr>
+            <tr><td>Salt</td><td>1¾ tsp</td></tr>
+          </table></div>
+          <div><div class="mini-title">Method</div><ol class="method">
+            <li>Peel and cube bottle gourd.</li><li>Temper mustard, cumin and curry leaves.</li><li>Add onion and green chilli.</li>
+            <li>Add tomato briefly.</li><li>Add bottle gourd, turmeric, salt and optional soaked moong dal.</li><li>Cook covered until soft and lightly juicy.</li>
+          </ol></div>
+        </div></div>
+      </article>
+
+    </div>
+  </section>
+
+  <!-- THURSDAY -->
+  <section class="day-section" id="thursday">
+    <div class="day-head"><h2>Thursday</h2><span class="tag">4 choices • serves 5</span></div>
+    <div class="recipes">
+
+      <article class="recipe">
+        <div class="recipe-head"><h3>🥘 Bendakaya Pulusu</h3><span class="meal-badge">Lunch</span></div>
+        <div class="recipe-body"><div class="two-col">
+          <div><div class="mini-title">Ingredients</div><table class="ingredients">
+            <tr><td>Bhindi</td><td>750–800 g</td></tr><tr><td>Onion</td><td>250 g</td></tr><tr><td>Tomato</td><td>200 g</td></tr>
+            <tr><td>Tamarind</td><td>35 g</td></tr><tr><td>Jaggery</td><td>15 g</td></tr><tr><td>Oil</td><td>3 tbsp</td></tr>
+            <tr><td>Mustard</td><td>1 tsp</td></tr><tr><td>Fenugreek</td><td>¼ tsp</td></tr><tr><td>Turmeric</td><td>½ tsp</td></tr>
+            <tr><td>Chilli powder</td><td>1 tsp</td></tr><tr><td>Coriander powder</td><td>1½ tsp</td></tr><tr><td>Water</td><td>700 ml</td></tr>
+          </table></div>
+          <div><div class="mini-title">Method</div><ol class="method">
+            <li>Shallow-fry cut bhindi lightly and set aside.</li><li>Temper mustard, fenugreek and curry leaves.</li><li>Add onion, then tomato.</li>
+            <li>Add tamarind extract, spices, jaggery and salt.</li><li>Boil until raw tamarind smell reduces.</li><li>Add fried bhindi and simmer 8–10 minutes.</li>
+          </ol></div>
+        </div></div>
+      </article>
+
+      <article class="recipe">
+        <div class="recipe-head"><h3>🧅 Potato-Onion Fry</h3><span class="meal-badge">Lunch</span></div>
+        <div class="recipe-body"><div class="two-col">
+          <div><div class="mini-title">Ingredients</div><table class="ingredients">
+            <tr><td>Potato</td><td>800 g</td></tr><tr><td>Onion</td><td>400 g</td></tr><tr><td>Green chilli</td><td>3</td></tr>
+            <tr><td>Oil</td><td>4 tbsp</td></tr><tr><td>Mustard</td><td>1 tsp</td></tr><tr><td>Cumin</td><td>1 tsp</td></tr>
+            <tr><td>Turmeric</td><td>½ tsp</td></tr><tr><td>Chilli powder</td><td>¾ tsp</td></tr><tr><td>Salt</td><td>2 tsp</td></tr>
+          </table></div>
+          <div><div class="mini-title">Method</div><ol class="method">
+            <li>Cube potatoes and slice onions.</li><li>Temper mustard, cumin and curry leaves.</li><li>Add green chilli and onion; sauté.</li>
+            <li>Add potato, turmeric and salt.</li><li>Cover until almost done.</li><li>Add chilli powder and fry until potato is lightly crisp.</li>
+          </ol></div>
+        </div></div>
+      </article>
+
+      <article class="recipe">
+        <div class="recipe-head"><h3>🥦 Cauliflower-Peas Masala</h3><span class="meal-badge">Dinner</span></div>
+        <div class="recipe-body"><div class="two-col">
+          <div><div class="mini-title">Ingredients</div><table class="ingredients">
+            <tr><td>Cauliflower</td><td>800 g</td></tr><tr><td>Green peas</td><td>250 g</td></tr><tr><td>Onion</td><td>250 g</td></tr>
+            <tr><td>Tomato</td><td>300 g</td></tr><tr><td>Ginger-garlic paste</td><td>1 tbsp</td></tr><tr><td>Oil</td><td>3 tbsp</td></tr>
+            <tr><td>Turmeric</td><td>½ tsp</td></tr><tr><td>Chilli powder</td><td>¾ tsp</td></tr><tr><td>Coriander powder</td><td>1½ tsp</td></tr>
+            <tr><td>Garam masala</td><td>½ tsp</td></tr><tr><td>Salt</td><td>2 tsp</td></tr>
+          </table></div>
+          <div><div class="mini-title">Method</div><ol class="method">
+            <li>Cut cauliflower into florets and blanch if desired.</li><li>Sauté onion, ginger-garlic and tomato.</li><li>Add spices and salt.</li>
+            <li>Add cauliflower and peas.</li><li>Sprinkle little water; cover and cook until tender.</li><li>Finish with garam masala.</li>
+          </ol></div>
+        </div></div>
+      </article>
+
+      <article class="recipe">
+        <div class="recipe-head"><h3>🥒 Ridge Gourd Curry</h3><span class="meal-badge">Dinner</span></div>
+        <div class="recipe-body"><div class="two-col">
+          <div><div class="mini-title">Ingredients</div><table class="ingredients">
+            <tr><td>Ridge gourd</td><td>1 kg</td></tr><tr><td>Onion</td><td>200 g</td></tr><tr><td>Tomato</td><td>200 g</td></tr>
+            <tr><td>Green chilli</td><td>2</td></tr><tr><td>Oil</td><td>2½ tbsp</td></tr><tr><td>Mustard</td><td>1 tsp</td></tr>
+            <tr><td>Cumin</td><td>1 tsp</td></tr><tr><td>Turmeric</td><td>½ tsp</td></tr><tr><td>Salt</td><td>1¾ tsp</td></tr>
+          </table></div>
+          <div><div class="mini-title">Method</div><ol class="method">
+            <li>Peel and cube ridge gourd.</li><li>Temper mustard, cumin and curry leaves.</li><li>Add onion and green chilli.</li>
+            <li>Add tomato briefly.</li><li>Add ridge gourd, turmeric and salt.</li><li>Cook covered in its own moisture; reduce to desired consistency.</li>
+          </ol></div>
+        </div></div>
+      </article>
+
+    </div>
+  </section>
+
+  <!-- FRIDAY -->
+  <section class="day-section" id="friday">
+    <div class="day-head"><h2>Friday</h2><span class="tag">4 choices • serves 5</span></div>
+    <div class="recipes">
+
+      <article class="recipe">
+        <div class="recipe-head"><h3>🍆 Gutti Vankaya-Style Curry</h3><span class="meal-badge">Lunch</span></div>
+        <div class="recipe-body"><div class="two-col">
+          <div><div class="mini-title">Ingredients</div><table class="ingredients">
+            <tr><td>Small brinjals</td><td>1 kg</td></tr><tr><td>Roasted peanuts</td><td>100 g</td></tr><tr><td>Sesame seeds</td><td>30 g</td></tr>
+            <tr><td>Coconut</td><td>40 g</td></tr><tr><td>Onion</td><td>200 g</td></tr><tr><td>Tamarind</td><td>20 g</td></tr>
+            <tr><td>Oil</td><td>4 tbsp</td></tr><tr><td>Chilli powder</td><td>1 tsp</td></tr><tr><td>Coriander powder</td><td>1½ tbsp</td></tr>
+            <tr><td>Cumin</td><td>1 tsp</td></tr><tr><td>Turmeric</td><td>½ tsp</td></tr><tr><td>Salt</td><td>2 tsp</td></tr>
+          </table></div>
+          <div><div class="mini-title">Method</div><ol class="method">
+            <li>Roast peanuts, sesame and coconut; grind with spices and salt.</li><li>Slit brinjals in a cross without separating the base.</li>
+            <li>Stuff with masala.</li><li>Place gently in hot oil.</li><li>Add remaining masala and little tamarind water.</li><li>Cover and cook on low until soft, turning gently.</li>
+          </ol></div>
+        </div></div>
+      </article>
+
+      <article class="recipe">
+        <div class="recipe-head"><h3>🥜 Dondakaya Peanut Fry</h3><span class="meal-badge">Lunch</span></div>
+        <div class="recipe-body"><div class="two-col">
+          <div><div class="mini-title">Ingredients</div><table class="ingredients">
+            <tr><td>Dondakaya</td><td>900 g</td></tr><tr><td>Roasted peanuts</td><td>100 g</td></tr><tr><td>Onion</td><td>200 g</td></tr>
+            <tr><td>Garlic</td><td>5 cloves</td></tr><tr><td>Oil</td><td>3½ tbsp</td></tr><tr><td>Chilli powder</td><td>1 tsp</td></tr>
+            <tr><td>Coriander powder</td><td>1 tsp</td></tr><tr><td>Turmeric</td><td>½ tsp</td></tr><tr><td>Salt</td><td>2 tsp</td></tr>
+          </table></div>
+          <div><div class="mini-title">Method</div><ol class="method">
+            <li>Slice dondakaya thinly and crush peanuts coarsely.</li><li>Heat oil; add garlic and onion.</li><li>Add dondakaya, turmeric and salt.</li>
+            <li>Cook covered until tender.</li><li>Fry uncovered until slightly crisp.</li><li>Add spice powders and peanut powder; toss 2–3 minutes.</li>
+          </ol></div>
+        </div></div>
+      </article>
+
+      <article class="recipe">
+        <div class="recipe-head"><h3>🥣 Mixed Vegetable Moong Dal Curry</h3><span class="meal-badge">Dinner</span></div>
+        <div class="recipe-body"><div class="two-col">
+          <div><div class="mini-title">Ingredients</div><table class="ingredients">
+            <tr><td>Bottle gourd</td><td>300 g</td></tr><tr><td>Carrot</td><td>150 g</td></tr><tr><td>Spinach</td><td>200 g</td></tr>
+            <tr><td>Tomato</td><td>150 g</td></tr><tr><td>Moong dal</td><td>250 g</td></tr><tr><td>Garlic</td><td>6 cloves</td></tr>
+            <tr><td>Green chilli</td><td>2</td></tr><tr><td>Cumin</td><td>1 tsp</td></tr><tr><td>Turmeric</td><td>½ tsp</td></tr>
+            <tr><td>Ghee/oil</td><td>2 tbsp</td></tr><tr><td>Salt</td><td>2 tsp</td></tr>
+          </table></div>
+          <div><div class="mini-title">Method</div><ol class="method">
+            <li>Wash moong dal and chop vegetables.</li><li>Pressure cook dal, bottle gourd, carrot, tomato, turmeric and chilli.</li>
+            <li>Mash lightly.</li><li>Add spinach and simmer 5 minutes.</li><li>Temper cumin and crushed garlic in ghee/oil.</li><li>Pour into dal and adjust consistency.</li>
+          </ol></div>
+        </div></div>
+      </article>
+
+      <article class="recipe">
+        <div class="recipe-head"><h3>🫑 Capsicum-Potato Curry</h3><span class="meal-badge">Dinner</span></div>
+        <div class="recipe-body"><div class="two-col">
+          <div><div class="mini-title">Ingredients</div><table class="ingredients">
+            <tr><td>Capsicum</td><td>500 g</td></tr><tr><td>Potato</td><td>600 g</td></tr><tr><td>Onion</td><td>250 g</td></tr>
+            <tr><td>Tomato</td><td>250 g</td></tr><tr><td>Oil</td><td>3 tbsp</td></tr><tr><td>Turmeric</td><td>½ tsp</td></tr>
+            <tr><td>Chilli powder</td><td>¾ tsp</td></tr><tr><td>Coriander powder</td><td>1½ tsp</td></tr><tr><td>Cumin powder</td><td>½ tsp</td></tr>
+            <tr><td>Salt</td><td>2 tsp</td></tr>
+          </table></div>
+          <div><div class="mini-title">Method</div><ol class="method">
+            <li>Cube potato and capsicum.</li><li>Sauté onion until soft.</li><li>Add tomato and cook until pulpy.</li>
+            <li>Add spices and salt.</li><li>Add potato and cook until nearly soft.</li><li>Add capsicum toward the end and cook only until just tender.</li>
+          </ol></div>
+        </div></div>
+      </article>
+
+    </div>
+  </section>
+
+  <!-- DAL -->
+  <section class="section" id="dal">
+    <div class="section-title"><div class="icon">🥣</div><div><h2>Dal Rotation</h2><p>Four useful pappu options for the weekday table.</p></div></div>
+    <div class="support-grid">
+
+      <div class="support-card"><h3>Tomato Pappu</h3>
+        <table class="ingredients"><tr><td>Toor dal</td><td>250 g</td></tr><tr><td>Tomato</td><td>400 g</td></tr><tr><td>Green chilli</td><td>2–3</td></tr><tr><td>Turmeric</td><td>½ tsp</td></tr><tr><td>Tamarind</td><td>10–15 g optional</td></tr><tr><td>Garlic</td><td>5 cloves</td></tr></table>
+        <div class="mini-title">Method</div><ol class="method"><li>Pressure cook dal, tomato, chilli and turmeric.</li><li>Mash and add salt plus optional tamarind.</li><li>Simmer 5 minutes.</li><li>Temper mustard, cumin, red chilli, garlic and curry leaves in ghee/oil.</li></ol>
+      </div>
+
+      <div class="support-card"><h3>Palakura Pappu</h3>
+        <table class="ingredients"><tr><td>Toor dal</td><td>250 g</td></tr><tr><td>Spinach</td><td>400 g</td></tr><tr><td>Tomato</td><td>200 g</td></tr><tr><td>Green chilli</td><td>2</td></tr><tr><td>Tamarind</td><td>15 g</td></tr><tr><td>Garlic</td><td>6 cloves</td></tr></table>
+        <div class="mini-title">Method</div><ol class="method"><li>Cook dal, spinach, tomato, chilli and turmeric together.</li><li>Mash well.</li><li>Add tamarind and salt; simmer.</li><li>Finish with garlic-mustard-cumin tempering.</li></ol>
+      </div>
+
+      <div class="support-card"><h3>Dosakaya Pappu</h3>
+        <table class="ingredients"><tr><td>Toor dal</td><td>250 g</td></tr><tr><td>Dosakaya</td><td>500 g</td></tr><tr><td>Tomato</td><td>150 g</td></tr><tr><td>Green chilli</td><td>3</td></tr><tr><td>Tamarind</td><td>20 g</td></tr><tr><td>Turmeric</td><td>½ tsp</td></tr></table>
+        <div class="mini-title">Method</div><ol class="method"><li>Peel and cube dosakaya.</li><li>Pressure cook with dal, tomato, chilli and turmeric.</li><li>Mash lightly.</li><li>Add tamarind and salt, then finish with tempering.</li></ol>
+      </div>
+
+      <div class="support-card"><h3>Gongura Pappu</h3>
+        <table class="ingredients"><tr><td>Toor dal</td><td>250 g</td></tr><tr><td>Gongura leaves</td><td>250–300 g</td></tr><tr><td>Onion</td><td>150 g</td></tr><tr><td>Green chilli</td><td>3</td></tr><tr><td>Garlic</td><td>6 cloves</td></tr><tr><td>Turmeric</td><td>½ tsp</td></tr></table>
+        <div class="mini-title">Method</div><ol class="method"><li>Cook dal with turmeric until soft.</li><li>Cook gongura separately until wilted.</li><li>Mash and combine.</li><li>Finish with garlic tempering.</li></ol>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- SAMBAR -->
+  <section class="section" id="sambar">
+    <div class="section-title"><div class="icon">🍲</div><div><h2>Sambar Rotation</h2><p>Three versatile sambars to rotate with dry vegetable dishes.</p></div></div>
+    <div class="support-grid">
+
+      <div class="support-card"><h3>Drumstick Sambar</h3>
+        <table class="ingredients"><tr><td>Toor dal</td><td>250 g</td></tr><tr><td>Drumsticks</td><td>3</td></tr><tr><td>Tomato</td><td>250 g</td></tr><tr><td>Onion/shallots</td><td>150 g</td></tr><tr><td>Tamarind</td><td>30 g</td></tr><tr><td>Sambar powder</td><td>2½ tbsp</td></tr><tr><td>Water</td><td>1.5 L</td></tr></table>
+        <div class="mini-title">Method</div><ol class="method"><li>Cook and mash dal.</li><li>Boil drumstick, onion and tomato in tamarind water.</li><li>Add turmeric, salt and sambar powder.</li><li>Add dal and simmer 8–10 minutes.</li><li>Finish with mustard, red chilli, hing and curry leaves tempering.</li></ol>
+      </div>
+
+      <div class="support-card"><h3>Onion-Tomato Sambar</h3>
+        <table class="ingredients"><tr><td>Toor dal</td><td>250 g</td></tr><tr><td>Onion</td><td>300 g</td></tr><tr><td>Tomato</td><td>300 g</td></tr><tr><td>Tamarind</td><td>30 g</td></tr><tr><td>Sambar powder</td><td>2½ tbsp</td></tr><tr><td>Water</td><td>1.5 L</td></tr></table>
+        <div class="mini-title">Method</div><ol class="method"><li>Cook and mash dal.</li><li>Boil onion and tomato in tamarind water.</li><li>Add turmeric, salt and sambar powder.</li><li>Add dal and simmer.</li><li>Finish with standard sambar tempering.</li></ol>
+      </div>
+
+      <div class="support-card"><h3>Vegetable Sambar</h3>
+        <table class="ingredients"><tr><td>Toor dal</td><td>250 g</td></tr><tr><td>Drumstick</td><td>1</td></tr><tr><td>Carrot</td><td>150 g</td></tr><tr><td>Pumpkin</td><td>200 g</td></tr><tr><td>Brinjal</td><td>150 g</td></tr><tr><td>Tomato</td><td>200 g</td></tr><tr><td>Tamarind</td><td>30 g</td></tr><tr><td>Sambar powder</td><td>2½ tbsp</td></tr></table>
+        <div class="mini-title">Method</div><ol class="method"><li>Cook dal until soft.</li><li>Boil vegetables in tamarind water.</li><li>Add turmeric, salt and sambar powder.</li><li>Add mashed dal and simmer until flavours combine.</li><li>Finish with tempering.</li></ol>
+      </div>
+
+      <div class="support-card"><h3>Simple Tempering Base</h3>
+        <table class="ingredients"><tr><td>Oil or ghee</td><td>1½–2 tbsp</td></tr><tr><td>Mustard</td><td>1 tsp</td></tr><tr><td>Cumin</td><td>½–1 tsp</td></tr><tr><td>Dry red chilli</td><td>2</td></tr><tr><td>Curry leaves</td><td>1 sprig</td></tr><tr><td>Hing</td><td>1 pinch</td></tr></table>
+        <div class="mini-title">Method</div><ol class="method"><li>Heat oil/ghee.</li><li>Crackle mustard and cumin.</li><li>Add dry chilli, curry leaves and hing.</li><li>Pour immediately over dal or sambar.</li></ol>
+      </div>
+
+    </div>
+  </section>
+
+
+  <!-- GYM DIET -->
+  <section class="section" id="gym-diet">
+    <div class="section-title">
+      <div class="icon">🏋️</div>
+      <div>
+        <h2>Daily Gym Diet</h2>
+        <p>Practical high-protein structure for lean muscle and strength.</p>
+      </div>
+    </div>
+
+    <div class="macro-strip">
+      <div class="macro"><strong>≈2,600</strong><span>kcal / day</span></div>
+      <div class="macro"><strong>150–160 g</strong><span>protein / day</span></div>
+      <div class="macro"><strong>65–75 g</strong><span>fat / day</span></div>
+      <div class="macro"><strong>≈300–340 g</strong><span>carbohydrate / day</span></div>
+    </div>
+
+    <div class="diet-timeline">
+      <article class="diet-card">
+        <div class="diet-time">5:20–5:40 AM</div>
+        <h3>🍌 Pre-Gym</h3>
+        <ul>
+          <li>1 banana or one similar fruit</li>
+          <li>Water</li>
+          <li>Keep this meal light and easy to digest</li>
+        </ul>
+        <div class="diet-kcal">≈100–150 kcal</div>
+      </article>
+
+      <article class="diet-card">
+        <div class="diet-time">8:00–8:30 AM</div>
+        <h3>🍳 Post-Workout Breakfast</h3>
+        <ul>
+          <li>3 whole eggs</li>
+          <li>2–3 additional egg whites</li>
+          <li>Choose: 3 idli + sambar, dosa, upma or oats</li>
+          <li>Water alongside meal</li>
+        </ul>
+        <div class="diet-kcal">≈550–700 kcal • 35–45 g protein</div>
+      </article>
+
+      <article class="diet-card">
+        <div class="diet-time">Lunch</div>
+        <h3>🍚 Main Meal</h3>
+        <ul>
+          <li>Rice as the main carbohydrate</li>
+          <li>Chicken or fish: 150–200 g</li>
+          <li>1 vegetable dish from the weekday recipe board</li>
+          <li>Dal or sambar</li>
+          <li>Curd: 200–250 g</li>
+        </ul>
+        <div class="diet-kcal">≈700–850 kcal • 45–60 g protein</div>
+      </article>
+
+      <article class="diet-card">
+        <div class="diet-time">Evening</div>
+        <h3>🥛 Protein Snack</h3>
+        <ul>
+          <li>Choose one practical protein snack</li>
+          <li>Eggs, curd, milk or leftover chicken</li>
+          <li>Sprouts + eggs also works</li>
+          <li>Whey protein is optional</li>
+        </ul>
+        <div class="diet-kcal">≈250–350 kcal • 20–30 g protein</div>
+      </article>
+
+      <article class="diet-card">
+        <div class="diet-time">Dinner</div>
+        <h3>🍗 Protein + Vegetables</h3>
+        <ul>
+          <li>Chicken / fish / lean meat: 150–200 g</li>
+          <li>Rice or chapati</li>
+          <li>1 vegetable dish from the recipe board</li>
+          <li>Keep the vegetable side generous</li>
+        </ul>
+        <div class="diet-kcal">≈600–750 kcal • 40–50 g protein</div>
+      </article>
+    </div>
+
+    <div class="diet-note-grid">
+      <div class="diet-note">
+        <h3>🥩 Protein Rotation</h3>
+        <div class="protein-rotation">
+          <div class="protein-chip">Eggs</div>
+          <div class="protein-chip">Chicken</div>
+          <div class="protein-chip">Fish</div>
+          <div class="protein-chip">Prawns</div>
+          <div class="protein-chip">Curd</div>
+          <div class="protein-chip">Milk</div>
+          <div class="protein-chip">Dal & Legumes</div>
+          <div class="protein-chip">Lean Mutton • Occasionally</div>
+        </div>
+        <div class="note">Paneer can be used occasionally. Whey is optional rather than compulsory.</div>
+      </div>
+
+      <div class="diet-note">
+        <h3>⚡ Training Nutrition Notes</h3>
+        <table class="ingredients">
+          <tr><td>Creatine monohydrate</td><td>3–5 g/day</td></tr>
+          <tr><td>Curd</td><td>200–250 g/day minimum</td></tr>
+          <tr><td>Lunch protein</td><td>150–200 g</td></tr>
+          <tr><td>Dinner protein</td><td>150–200 g</td></tr>
+          <tr><td>Daily protein goal</td><td>150–160 g</td></tr>
+        </table>
+        <div class="note">Use the Monday–Friday vegetable dishes as lunch or dinner sides. Rice/chapati quantity can be adjusted to keep the full day close to the calorie target.</div>
+      </div>
+    </div>
+  </section>
+
+
+  <!-- PAIRINGS -->
+  <section class="section" id="pairings">
+    <div class="section-title"><div class="icon">🍽️</div><div><h2>Quick Pairing Table</h2><p>Useful combinations for a balanced plate.</p></div></div>
+    <table class="pair-table">
+      <thead><tr><th>Main Dish</th><th>Best Pair</th></tr></thead>
+      <tbody>
+        <tr><td>Aloo Fry</td><td>Tomato Pappu / Drumstick Sambar</td></tr>
+        <tr><td>Bendakaya Fry</td><td>Palakura Pappu / Onion-Tomato Sambar</td></tr>
+        <tr><td>Dondakaya Fry</td><td>Tomato Pappu / Vegetable Sambar</td></tr>
+        <tr><td>Vankaya Tomato Kura</td><td>Dosakaya Pappu</td></tr>
+        <tr><td>Vankaya Peanut Curry</td><td>Plain rice + Tomato Pappu</td></tr>
+        <tr><td>Raw Banana Fry</td><td>Palakura Pappu</td></tr>
+        <tr><td>Bendakaya Pulusu</td><td>Hot rice + fryums</td></tr>
+        <tr><td>Potato-Onion Fry</td><td>Drumstick Sambar</td></tr>
+        <tr><td>Cauliflower-Peas Masala</td><td>Chapati / mild dal</td></tr>
+        <tr><td>Ridge Gourd Curry</td><td>Rice + pappu</td></tr>
+        <tr><td>Gutti Vankaya</td><td>Rice + plain dal</td></tr>
+        <tr><td>Capsicum-Potato Curry</td><td>Chapati / Onion-Tomato Sambar</td></tr>
+      </tbody>
+    </table>
+  </section>
+
+  <!-- SHOPPING -->
+  <section class="section" id="shopping">
+    <div class="section-title"><div class="icon">🧺</div><div><h2>Master Shopping Base</h2><p>Approximate quantities if stocking for the full Monday–Friday menu set.</p></div></div>
+    <table class="shopping-table">
+      <thead><tr><th>Ingredient</th><th>Approximate Total</th></tr></thead>
+      <tbody>
+        <tr><td>Potatoes</td><td>4.5–5 kg</td></tr>
+        <tr><td>Onions</td><td>4–4.5 kg</td></tr>
+        <tr><td>Tomatoes</td><td>3.5–4 kg</td></tr>
+        <tr><td>Bhindi</td><td>1.7 kg</td></tr>
+        <tr><td>Brinjal</td><td>2.9 kg</td></tr>
+        <tr><td>Dondakaya</td><td>1.9 kg</td></tr>
+        <tr><td>Carrot</td><td>1.2–1.4 kg</td></tr>
+        <tr><td>Beans</td><td>750 g</td></tr>
+        <tr><td>Cabbage</td><td>700 g</td></tr>
+        <tr><td>Bottle gourd</td><td>1.3 kg</td></tr>
+        <tr><td>Ridge gourd</td><td>1 kg</td></tr>
+        <tr><td>Capsicum</td><td>500 g</td></tr>
+        <tr><td>Cauliflower</td><td>1.05 kg</td></tr>
+        <tr><td>Green peas</td><td>700 g</td></tr>
+        <tr><td>Raw banana</td><td>1 kg</td></tr>
+        <tr><td>Spinach</td><td>600 g</td></tr>
+        <tr><td>Gongura</td><td>250–300 g</td></tr>
+        <tr><td>Dosakaya</td><td>500 g</td></tr>
+        <tr><td>Coconut</td><td>250–300 g</td></tr>
+        <tr><td>Peanuts</td><td>280–300 g</td></tr>
+        <tr><td>Toor dal</td><td>About 1.25 kg</td></tr>
+        <tr><td>Moong dal</td><td>About 300 g</td></tr>
+      </tbody>
+    </table>
+  </section>
+
+  <div class="footer">
+    <strong>Kitchen Note:</strong> Quantities are designed for approximately 5 people. Salt, chilli and water can be adjusted slightly according to taste, age group and desired consistency.
+  </div>
+</div>
+</body>
+</html>
